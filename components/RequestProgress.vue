@@ -4,10 +4,10 @@ import { mapState } from 'vuex';
 export default {
   computed: mapState({
     max(state) {
-      return get(state, 'requests.all', 0);
+      return get(state, 'lastfm.requestsTotal', 0);
     },
     value(state) {
-      return get(state, 'requests.successful', 0);
+      return get(state, 'lastfm.requestsSuccessful', 0);
     },
   }),
 };
@@ -15,6 +15,7 @@ export default {
 <style scoped>
 .progress {
   bottom: 0px;
+  left: 0px;
   position: fixed;
 }
 </style>

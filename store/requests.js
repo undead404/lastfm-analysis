@@ -12,7 +12,8 @@ export const mutations = {
       set(state, 'all', 0);
       set(state, 'successful', 0);
     } else {
-      set(state, 'successful', oldSuccessful + number);
+      const newSuccessful = oldSuccessful + number;
+      set(state, 'successful', oldAll > newSuccessful ? newSuccessful : oldAll);
     }
   },
 };

@@ -1,4 +1,6 @@
-import flow from 'lodash/flow';
-import get from 'lodash/fp/get';
-import toNumber from 'lodash/fp/toNumber';
-export default flow(get, toNumber);
+import get from 'lodash/get';
+import toNumber from 'lodash/toNumber';
+export default function(obj, path, defaultValue) {
+  const value = get(obj, path, defaultValue);
+  return toNumber(value);
+}

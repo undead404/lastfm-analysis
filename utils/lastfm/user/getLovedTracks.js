@@ -1,19 +1,19 @@
-import fetch from 'node-fetch';
-import Mustache from 'mustache';
+import get from 'lodash/get';
 import { LASTFM_API_KEY } from '../config';
+import renderUrl from '~/utils/renderUrl';
+import throttledFetch from '~/utils/throttledFetch';
 const URL_TEMPLATE =
-  'http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user={{username}}&api_key={{apiKey}}&format=json&page={{pageNum}}';
+  'http://ws.audioscrobbler.com/2.0/?method=user.getLovedTracks&user={{username}}&api_key={{apiKey}}&format=json&page={{pageNum}}';
 
 export default async function getLovedTracks(username, pageNum = 1) {
   if (!username) {
-    console.error('no username provided');
-    return {};
+    throw new Error('no username provided');
   }
-  const url = Mustache.render(URL_TEMPLATE, {
+  const url = renderUrl(URL_TEMPLATE, {
     apiKey: LASTFM_API_KEY,
     pageNum,
     username,
   });
-  const response = await fetch(url);
-  return response.json();
+  const response = await throttledFetch(url);
+  return get(await response.json(), 'lovedtracks');
 }
