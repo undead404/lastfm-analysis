@@ -88,3 +88,5 @@ sw.*
 
 # Vim swap files
 *.swp
+worker/worker
+server/server
